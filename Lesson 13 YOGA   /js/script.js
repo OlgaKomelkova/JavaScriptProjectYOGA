@@ -256,10 +256,10 @@ if (n < 1) {
         personsSum = +this.value;
         total = (daysSum + personsSum) * 4000;
 
-        if(restDays.value == '') {
+        if((restDays.value == '' || daysSum == '' || personsSum == '') || (daysSum == 0 || personsSum == 0)) {
             totalValue.innerHTML = 0;
         } else {
-            totalValue.innerHTML = total;
+            totalValue.innerHTML = total * place.options[place.selectedIndex].value;
         }
     });
 
@@ -267,7 +267,7 @@ if (n < 1) {
         daysSum = +this.value;
         total = (daysSum + personsSum) * 4000;
 
-        if(persons.value == '') {
+        if((daysSum == '' || persons.value == '') || (daysSum == 0 || personsSum == 0)) {
             totalValue.innerHTML = 0;
         } else {
             totalValue.innerHTML = total;
@@ -275,7 +275,7 @@ if (n < 1) {
     });
 
     place.addEventListener('change', function() {
-        if(restDays.value == '' || persons.value == '') {
+        if((restDays.value == '' || persons.value == '') || (daysSum == 0 || personsSum == 0)) {
             totalValue.innerHTML = 0;
         } else {
             let a = total;
@@ -285,10 +285,12 @@ if (n < 1) {
 
     let inputsCounter = document.querySelectorAll('.counter-block-input');
 
-    function onlyNumbers(input) {
+    function onlyNumber(input) {
     input.onkeydown = function () {
         return (this.value = this.value.replace(/[^0-9]/g));
        };
     }
+	
 
-    [...inputsCounter].forEach(elem => onlyNumbers(elem));
+    [...inputsCounter].forEach(elem => onlyNumber(elem));
+	
